@@ -24,5 +24,5 @@ func main(){
 
 # Contribution Guidelines
 Contributions are greatly appreciated. The maintainers actively manage the issues list. 
-For a list of priary mainters see [./MAINTAINERS.md](./MAINTAINERS.md). The project follows the typical GitHub pull request model.
+For a list of primary maintainers see [./MAINTAINERS.md](./MAINTAINERS.md). The project follows the typical GitHub pull request model.
 Before starting any work, please either comment on an existing issue, or file a new one.
