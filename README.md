@@ -1,5 +1,5 @@
 # Edgar Getter
-Edgar Getter is a tool written in Go for downloading company periodic reports, 
+Edgar Getter is a Go package for downloading company periodic reports, 
 filings and forms from Securities and Exchange Commission (SEC) EDGAR site.
 
 # Installation
