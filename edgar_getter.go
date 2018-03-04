@@ -6,7 +6,6 @@
 package getter
 
 import (
-	"edgarparser/pkgs/telemetry"
 	"expvar"
 	"github.com/anaskhan96/soup"
 	"io"
@@ -34,7 +33,9 @@ type Getter struct {
 	RetrieveURI       string
 	SaveLocation      string
 	ValidFileSuffixes map[string]bool // ValidFileSuffixes lists the ONLY valid suffixes allowed when downloading
-	Telemetry         *telemetry.Telemetry
+	Telemetry         *telemetry.Telemetry // Reference to a Telemetry object(NOT REQUIRED). 
+	// See the following for a suggested implementation for telemetry
+	// http://www.mikeperham.com/2014/12/17/expvar-metrics-for-golang/
 }
 
 // NewGetter initializes and performs any setup necessary for the getter package to function.
