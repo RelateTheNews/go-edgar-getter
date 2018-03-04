@@ -33,9 +33,6 @@ type Getter struct {
 	RetrieveURI       string
 	SaveLocation      string
 	ValidFileSuffixes map[string]bool // ValidFileSuffixes lists the ONLY valid suffixes allowed when downloading
-	Telemetry         *telemetry.Telemetry // Reference to a Telemetry object(NOT REQUIRED). 
-	// See the following for a suggested implementation for telemetry
-	// http://www.mikeperham.com/2014/12/17/expvar-metrics-for-golang/
 }
 
 // NewGetter initializes and performs any setup necessary for the getter package to function.
@@ -131,7 +128,6 @@ func (getter *Getter) RetrieveSingleFile(location string, fileList chan<- string
 // returning the filenames retrieved.
 func (getter *Getter) RetrieveURIs(sourceURI string, customLimit int) []string {
 	var wg sync.WaitGroup
-	var expvarTime *telemetry.TimeVar
 	var links []soup.Root
 	var single bool
 	var i = 0
@@ -147,10 +143,6 @@ func (getter *Getter) RetrieveURIs(sourceURI string, customLimit int) []string {
 	filename := t[len(t)-1]
 
 	start := time.Now()
-	expvarTime = &telemetry.TimeVar{Value: start}
-	if getter.Telemetry != nil {
-		getter.Telemetry.TelemetryData.Set("RetrieveURIs Start Time", expvarTime)
-	}
 	if strings.Contains(filename, ".") {
 		// sourceURI is a single file
 		single = true
@@ -190,9 +182,6 @@ func (getter *Getter) RetrieveURIs(sourceURI string, customLimit int) []string {
 
 				go func(file string, wg *sync.WaitGroup) {
 					defer wg.Done()
-					if getter.Telemetry != nil {
-						getter.Telemetry.TelemetryData.Add("Total URIs", 1)
-					}
 					getter.RetrieveSingleFile(file, allFileLocations)
 				}(fileURI, &wg)
 
@@ -212,9 +201,6 @@ func (getter *Getter) RetrieveURIs(sourceURI string, customLimit int) []string {
 
 			go func(file string, wg *sync.WaitGroup) {
 				defer wg.Done()
-				if getter.Telemetry != nil {
-					getter.Telemetry.TelemetryData.Add("Total URIs", 1)
-				}
 				getter.RetrieveSingleFile(file, allFileLocations)
 			}(fileURI, &wg)
 		} //switch
@@ -222,10 +208,6 @@ func (getter *Getter) RetrieveURIs(sourceURI string, customLimit int) []string {
 
 	wg.Wait()
 	close(allFileLocations)
-	elapsed := time.Since(start)
-	if getter.Telemetry != nil {
-		getter.Telemetry.TelemetryData.Add("RetrieveURIs(ns)", int64(elapsed))
-	}
 	var fileList []string
 	for file := range allFileLocations {
 		fileList = append(fileList, file)
