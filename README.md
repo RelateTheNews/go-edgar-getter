@@ -6,7 +6,9 @@ filings and forms from Securities and Exchange Commission (SEC) EDGAR site.
 `go get github.com/RelateTheNews/go-edgar-getter`
 # Usage
 ```go
-import getter
+package main
+
+import "getter"
 
 func main(){
   var g Getter
