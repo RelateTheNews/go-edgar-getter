@@ -3,12 +3,12 @@ Edgar Getter is a Go package for downloading company periodic reports,
 filings and forms from Securities and Exchange Commission (SEC) EDGAR site.
 
 # Installation
-`go get github.com/RelateTheNews/go-edgar-getter`
+`go get -u github.com/RelateTheNews/go-edgar-getter`
 # Usage
 ```go
 package main
 
-import "getter"
+import "github.com/RelateTheNews/go-edgar-getter"
 
 func main(){
   var g Getter
@@ -21,6 +21,7 @@ func main(){
   
   // files is a list of successfully retrieved files
   files := g.RetrieveURIs(getURI, 0)
+  fmt.Println(len(files))
 }
 ```
 
