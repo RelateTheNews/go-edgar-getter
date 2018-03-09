@@ -142,7 +142,6 @@ func (getter *Getter) RetrieveURIs(sourceURI string, customLimit int) []string {
 	t := strings.Split(sourceURI, "/")
 	filename := t[len(t)-1]
 
-	start := time.Now()
 	if strings.Contains(filename, ".") {
 		// sourceURI is a single file
 		single = true
