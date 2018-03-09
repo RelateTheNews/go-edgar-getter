@@ -11,7 +11,7 @@ package main
 import "github.com/RelateTheNews/go-edgar-getter"
 
 func main(){
-  var g Getter
+  var g getter.Getter
   var getURI string
   
   // Note this is a sample URI. Must verify correct URIs on www.sec.gov
